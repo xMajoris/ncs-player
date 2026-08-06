@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NCSFan</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="player-container">
+      <h1 class="welcome">Welcome</h1>
+      <div class="album">
+        <img id="albumCover" src="" alt="musicAlbum">
+      </div>
+      <div class="music-title">Música</div>
+      
+      <div class="nav">
+        <button class="prev">⏮</button>
+        <button class="play">▶</button>
+        <button class="next">⏭</button>
+      </div>
+    </main>
+
+    <div class="volume-control-wrapper">
+      <button class="vol-icon">🔊</button>
+      <div class="volume-slider-container">
+        <input type="range" class="volume-slider" min="0" max="100" value="80">
+      </div>
+    </div>
+
+    <div id="ytPlayer" style="display:none;"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
