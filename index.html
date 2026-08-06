@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <h1 class="welcome"></h1>
+
     <main class="player-container">
-      <h1 class="welcome">Welcome</h1>
       <div class="album">
-        <img id="albumCover" src="" alt="musicAlbum">
+        <img id="albumCover" src="" alt="musicAlbum" />
       </div>
       <div class="music-title">Música</div>
-      
+
       <div class="nav">
         <button class="prev">⏮</button>
         <button class="play">▶</button>
@@ -24,11 +25,15 @@
     <div class="volume-control-wrapper">
       <button class="vol-icon">🔊</button>
       <div class="volume-slider-container">
-        <input type="range" class="volume-slider" min="0" max="100" value="80">
+        <input
+          type="range"
+          class="volume-slider"
+          min="0"
+          max="100"
+          value="80"
+        />
       </div>
     </div>
-
-    <div id="ytPlayer" style="display:none;"></div>
 
     <script src="script.js"></script>
   </body>

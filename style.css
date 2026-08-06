@@ -8,6 +8,32 @@ body {
   background-color: black;
   color: white;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.welcome {
+  position: fixed;
+  top: 25px;
+  left: 30px;
+  font-size: 36px;
+  font-weight: bold;
+  z-index: 100;
+  text-align: left;
+}
+
+.welcome::after {
+  content: "|";
+  animation: piscar 0.7s infinite;
+}
+
+@keyframes piscar {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .player-container {
@@ -17,21 +43,7 @@ body {
   height: 100vh;
   flex-direction: column;
   gap: 20px;
-}
-
-.welcome {
-  font-size: 90px;
-  text-align: center;
-  animation: fadein 2s;
-}
-
-@keyframes fadein {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  padding: 20px;
 }
 
 .album {
@@ -79,13 +91,10 @@ button:active {
   transform: scale(0.95);
 }
 
-#ytPlayer {
-  display: none;
-}
-
 .music-title {
-  font-size: 30px;
+  font-size: 26px;
   text-align: center;
+  padding: 0 15px;
 }
 
 .album img,
@@ -95,8 +104,8 @@ button:active {
 
 .volume-control-wrapper {
   position: fixed;
-  right: 30px;
-  bottom: 30px;
+  right: 20px;
+  bottom: 20px;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -120,17 +129,19 @@ button:active {
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease;
   margin-bottom: -10px;
 }
 
-.volume-control-wrapper.show-slider .volume-slider-container {
+.volume-control-wrapper:hover .volume-slider-container {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Novo método nativo para barra vertical funcionar perfeitamente */
 .volume-slider {
   writing-mode: vertical-lr;
   direction: rtl;
@@ -150,7 +161,7 @@ button:active {
   background: white;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .volume-slider::-moz-range-thumb {
@@ -160,4 +171,36 @@ button:active {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+}
+@media (max-width: 768px) {
+  .welcome {
+    font-size: 22px;
+    top: 15px;
+    left: 20px;
+  }
+
+  .player-container {
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .album {
+    width: 90vw;
+    max-width: 320px;
+    height: 270px;
+  }
+
+  .music-title {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 24px;
+    padding: 8px 16px;
+  }
+
+  .volume-control-wrapper {
+    right: 15px;
+    bottom: 15px;
+  }
 }
