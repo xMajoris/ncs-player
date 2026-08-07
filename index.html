@@ -1,15 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NCSFan</title>
+    <title>NCSMini</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1 class="welcome"></h1>
+    <!-- Botão de Configurações no Topo Direito -->
+    <div class="settings-container">
+      <button id="settingsBtn" class="settings-btn" aria-label="Settings">
+        ⚙️
+      </button>
+      <div id="settingsMenu" class="settings-menu">
+        <div class="settings-item lang-option">
+          <span class="lang-text">Language ▾</span>
+          <div class="lang-dropdown">
+            <div data-lang="en">English</div>
+            <div data-lang="pt">Português</div>
+            <div data-lang="es">Español</div>
+            <div data-lang="ja">日本語</div>
+          </div>
+        </div>
+        <div class="settings-item" id="themeToggle">
+          <span class="theme-text">Theme</span>
+          <span id="themeIcon">☀️</span>
+        </div>
+        <div class="settings-item" id="fullscreenToggle">
+          <span class="fullscreen-text">Fullscreen</span>
+          <span id="fullscreenIcon">⛶</span>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="welcome">
+      <span class="welcome-text"></span>
+      <span class="welcome-icon"></span>
+    </h1>
 
     <main class="player-container">
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search songs or artists..."
+        />
+        <div id="searchResults" class="search-results"></div>
+      </div>
       <div class="album">
         <img id="albumCover" src="" alt="musicAlbum" />
       </div>
@@ -20,6 +57,10 @@
         <button class="play">▶</button>
         <button class="next">⏭</button>
       </div>
+      <p class="copyright">
+        <span class="copyright-text">All audio tracks provided by</span>
+        <a href="https://ncs.io" target="_blank"><strong>NCS</strong></a>
+      </p>
     </main>
 
     <div class="volume-control-wrapper">

@@ -4,11 +4,24 @@
   box-sizing: border-box;
 }
 
+html,
 body {
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
   background-color: black;
   color: white;
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .welcome {
@@ -40,22 +53,33 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100dvh;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  overflow: hidden;
 }
 
 .album {
   width: 600px;
   height: 500px;
   border-radius: 15px;
-  background-color: black;
+  background-color: #1a1a1a;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 3px solid #333;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.album:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .album img {
@@ -69,6 +93,7 @@ body {
   display: flex;
   flex-direction: row;
   gap: 15px;
+  flex-shrink: 0;
 }
 
 button {
@@ -79,22 +104,49 @@ button {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
 }
 
 button:active {
-  background-color: #777;
   transform: scale(0.95);
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+button:hover::after {
+  opacity: 1;
 }
 
 .music-title {
   font-size: 26px;
   text-align: center;
   padding: 0 15px;
+  transition: color 0.3s ease;
+  flex-shrink: 0;
 }
 
 .album img,
@@ -116,6 +168,13 @@ button:active {
   margin-top: 10px;
   padding: 15px !important;
   border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+}
+
+.vol-icon:hover {
+  transform: scale(1.15) !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.15) !important;
 }
 
 .volume-slider-container {
@@ -129,17 +188,17 @@ button:active {
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease,
-    transform 0.3s ease;
+  transition: all 0.3s ease;
   margin-bottom: -10px;
+  position: relative;
+  overflow: hidden;
 }
 
 .volume-control-wrapper:hover .volume-slider-container {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .volume-slider {
@@ -152,6 +211,12 @@ button:active {
   outline: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.volume-slider:hover {
+  background: rgba(255, 255, 255, 0.4);
+  width: 14px;
 }
 
 .volume-slider::-webkit-slider-thumb {
@@ -162,6 +227,12 @@ button:active {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .volume-slider::-moz-range-thumb {
@@ -171,36 +242,472 @@ button:active {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
+
+.volume-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.4s ease;
+}
+
+#searchInput:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
+#searchInput:focus {
+  border-color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  transform: scale(1.02);
+}
+
+#searchInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  transition: opacity 0.3s ease;
+}
+
+.search-results {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: rgba(24, 24, 24, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  z-index: 10;
+  display: none;
+}
+
+.search-result-item {
+  padding: 10px 15px;
+  font-size: 13px;
+  color: #fff;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s;
+}
+
+.search-result-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.copyright {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.copyright a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.copyright a:hover {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: underline;
+}
+
+.settings-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.settings-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.settings-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+.settings-menu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background-color: rgba(24, 24, 24, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  width: 160px;
+  padding: 8px 0;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.settings-item {
+  position: relative;
+  padding: 10px 15px;
+  font-size: 13px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition:
+    background 0.2s,
+    color 0.3s ease;
+}
+
+.settings-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+#fullscreenIcon,
+#themeIcon {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  background-color: rgba(24, 24, 24, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  width: 130px;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.lang-option:hover .lang-dropdown {
+  display: block;
+}
+
+.lang-dropdown div {
+  padding: 10px 15px;
+  font-size: 13px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.lang-dropdown div:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+html[data-theme="light"] {
+  background-color: #ffffff;
+}
+
+html[data-theme="light"] body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html[data-theme="light"] .album {
+  border-color: #ccc;
+  background-color: #f5f5f5;
+}
+
+html[data-theme="light"] .album:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] button {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+html[data-theme="light"] button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .music-title {
+  color: #000;
+}
+
+html[data-theme="light"] .volume-slider-container {
+  background-color: #e0e0e0;
+}
+
+html[data-theme="light"] .vol-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+html[data-theme="light"]
+  .volume-control-wrapper:hover
+  .volume-slider-container {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .volume-slider::-webkit-slider-thumb {
+  background: #000;
+}
+
+html[data-theme="light"] .volume-slider::-moz-range-thumb {
+  background: #000;
+}
+
+html[data-theme="light"] .volume-slider:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="light"] #searchInput {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #000;
+}
+
+html[data-theme="light"] #searchInput::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="light"] #searchInput:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] #searchInput:focus {
+  border-color: #000;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .search-results {
+  background-color: rgba(240, 240, 240, 0.95);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="light"] .search-result-item {
+  color: #000;
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="light"] .search-result-item:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .copyright {
+  color: #666;
+}
+
+html[data-theme="light"] .copyright a {
+  color: #000;
+}
+
+html[data-theme="light"] .copyright a:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="light"] .settings-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #000;
+}
+
+html[data-theme="light"] .settings-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .settings-menu,
+html[data-theme="light"] .lang-dropdown {
+  background-color: rgba(240, 240, 240, 0.95);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="light"] .settings-item,
+html[data-theme="light"] .lang-dropdown div {
+  color: #000;
+}
+
+html[data-theme="light"] .settings-item:hover,
+html[data-theme="light"] .lang-dropdown div:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .welcome {
+  color: #000;
+}
+
 @media (max-width: 768px) {
   .welcome {
-    font-size: 22px;
-    top: 15px;
-    left: 20px;
+    font-size: 18px;
+    top: 10px;
+    left: 15px;
+    position: fixed;
   }
 
   .player-container {
-    gap: 15px;
+    gap: 12px;
     padding: 10px;
+    height: 100dvh;
   }
 
   .album {
-    width: 90vw;
+    width: 75vw;
+    height: 40vh;
     max-width: 320px;
-    height: 270px;
+    max-height: 300px;
   }
 
   .music-title {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   button {
-    font-size: 24px;
+    font-size: 22px;
     padding: 8px 16px;
   }
 
+  button:hover {
+    transform: scale(1.05);
+  }
+
+  .search-container {
+    max-width: 260px;
+    margin-bottom: 5px;
+  }
+
+  #searchInput {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
   .volume-control-wrapper {
-    right: 15px;
-    bottom: 15px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .vol-icon {
+    padding: 10px !important;
+    font-size: 16px !important;
+  }
+
+  .volume-slider-container {
+    height: 80px;
+    width: 28px;
+  }
+
+  .volume-slider {
+    height: 60px;
+  }
+
+  .copyright {
+    font-size: 11px;
+    bottom: 10px;
+  }
+
+  .settings-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .settings-menu {
+    width: 140px;
+  }
+
+  .settings-item {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .settings-container {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome {
+    font-size: 15px;
+    top: 8px;
+    left: 12px;
+  }
+
+  .album {
+    width: 70vw;
+    height: 35vh;
+    max-width: 260px;
+    max-height: 240px;
+  }
+
+  .music-title {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 6px 12px;
+  }
+
+  .nav {
+    gap: 8px;
+  }
+
+  .search-container {
+    max-width: 220px;
+  }
+
+  #searchInput {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .settings-menu {
+    width: 120px;
+  }
+
+  .settings-item {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .copyright {
+    font-size: 10px;
+    bottom: 8px;
   }
 }
