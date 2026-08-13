@@ -22,6 +22,19 @@
       href="assets/icon-512.png"
     />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-192.png" />
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then(function (reg) {
+            console.log("Service Worker registrado!", reg);
+          })
+          .catch(function (err) {
+            console.log("Erro ao registrar Service Worker:", err);
+          });
+      }
+    </script>
   </head>
 
   <body>
