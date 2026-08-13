@@ -24,18 +24,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-192.png" />
 
     <script>
-      // Service Worker
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/ncs-player/sw.js")
           .then(function (registration) {
-            console.log(
-              "✅ Service Worker registrado com sucesso!",
-              registration,
-            );
+            console.log("Service Worker registrado com sucesso!", registration);
           })
           .catch(function (error) {
-            console.log("❌ Erro ao registrar Service Worker:", error);
+            console.log("Erro ao registrar Service Worker:", error);
           });
       }
     </script>
