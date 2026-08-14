@@ -3,58 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NCSMini - Player de Música NCS</title>
+    <title>NCSMini</title>
     <link rel="stylesheet" href="style.css" />
-
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#000000" />
-
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="assets/icon-192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="assets/icon-512.png"
-    />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-192.png" />
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("/ncs-player/sw.js")
-          .then(function (registration) {
-            console.log("Service Worker registrado com sucesso!", registration);
-          })
-          .catch(function (error) {
-            console.log("Erro ao registrar Service Worker:", error);
-          });
-      }
-    </script>
   </head>
-
-  <script>
-    // Service Worker
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(function (registration) {
-          console.log(
-            "✅ Service Worker registrado com sucesso!",
-            registration,
-          );
-        })
-        .catch(function (error) {
-          console.log("❌ Erro ao registrar Service Worker:", error);
-        });
-    } else {
-      console.log("❌ Service Worker não é suportado neste navegador.");
-    }
-  </script>
 
   <body>
     <div class="settings-container">
@@ -96,11 +47,9 @@
         />
         <div id="searchResults" class="search-results"></div>
       </div>
-
       <div class="album">
-        <img id="albumCover" src="" alt="Capa do álbum" />
+        <img id="albumCover" src="" alt="musicAlbum" />
       </div>
-
       <div class="music-title-wrapper">
         <div class="music-title">Música</div>
         <button
@@ -111,19 +60,18 @@
           ⬇️
         </button>
       </div>
-
       <div class="download-all-container">
         <button class="download-all-btn" id="downloadAllBtn">
           📥 <span class="download-all-text">Download All</span>
           <span class="count" id="downloadCount">0</span>
         </button>
       </div>
-      <div class="nav">
-        <button class="prev" aria-label="Anterior">⏮</button>
-        <button class="play" aria-label="Play/Pause">▶</button>
-        <button class="next" aria-label="Próxima">⏭</button>
-      </div>
 
+      <div class="nav">
+        <button class="prev">⏮</button>
+        <button class="play">▶</button>
+        <button class="next">⏭</button>
+      </div>
       <p class="copyright">
         <span class="copyright-text">All audio tracks provided by</span>
         <a href="https://ncs.io" target="_blank"><strong>NCS</strong></a>
@@ -131,7 +79,7 @@
     </main>
 
     <div class="volume-control-wrapper">
-      <button class="vol-icon" aria-label="Volume">🔊</button>
+      <button class="vol-icon">🔊</button>
       <div class="volume-slider-container">
         <input
           type="range"
